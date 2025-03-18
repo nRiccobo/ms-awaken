@@ -1,0 +1,158 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ms-awaken"
+dynamic = ["version"]
+authors = [
+  {name = "Nick Riccobono", email = "nicholas.riccobono@nrel.gov"},
+]
+readme = {file = "README.md", content-type = "text/x-md"}
+description = "Main Shaft Drivetrain Analysis using AWAKEN and OpenFAST"
+requires-python = ">=3.9, <3.12"
+license = {file = "LICENSE"}
+dependencies = [
+  "numpy",
+  "matplotlib",
+  "scipy",
+  "pandas",
+  "pyyaml",
+  "h5py",
+  "netcdf4<1.7.1",
+  "doe-dap-dl"
+]
+keywords = [
+  "python3",
+  "awaken",
+  "openfast",
+  "wind-energy",
+  "drivetrain",
+  "simulation",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Other Audience",
+  "License :: OSI Approved :: Apache Software License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit",
+  "black",
+  "isort",
+  "pytest",
+  "pytest-cov",
+  "sphinx",
+  "sphinx-rtd-theme",
+  "ruff",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["msawaken", "*.yaml", "*.csv"]
+exclude = ["*.tests", "*.tests.*", "tests.*", "tests"]
+
+[tool.setuptools.dynamic]
+version = {attr = "msawaken.__version__"}
+
+[tool.black]
+line-length = 79
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 79
+sections = [
+  "FUTURE",
+  "STDLIB",
+  "THIRDPARTY",
+  "FIRSTPARTY",
+  "LOCALFOLDER",
+]
+known_first_party = [
+  "ORBIT",
+  "tests",
+  "library",
+]
+length_sort = "1"
+
+[tool.ruff]
+line-length = 79
+target-version = "py39"
+exclude = [
+  ".git",
+  "__pycache__",
+  "docs/source/conf.py",
+  "old",
+  "build",
+  "dist",
+  "^tests/",
+  ".ruff_cache",
+]
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+unfixable = []
+select = [
+  "F",
+  "E",
+  "W",
+  "C4",
+  "D",
+  "UP",
+  "BLE",
+  "B",
+  "A",
+  "NPY",
+  "PD",
+  "PTH",
+  "PERF",
+  "Q",
+]
+ignore = [
+  "E731",
+  "E402",
+  "D202",
+  "D212",
+  "C901",
+  "D205",
+  "D401",
+  "PD901",
+  "PERF203",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"*/__init__.py" = ["D104", "F401"]
+"tests/*" = ["D100", "D101", "D102", "D103"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"

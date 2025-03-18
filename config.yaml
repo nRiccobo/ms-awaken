@@ -1,0 +1,7 @@
+username: 'nicholas.riccobono@nrel.gov'
+filter:
+  Dataset: 'awaken/kp.turbine.z03.b0'
+  date_time:
+    between: ['20240129', '20240130']
+  file_type: 'nc'
+  ext1 : 'e6'
