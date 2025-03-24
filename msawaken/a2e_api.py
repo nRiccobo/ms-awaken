@@ -1,3 +1,5 @@
+""" An API class to access the a2e.energy.gov website and download datasets. """
+
 from pathlib import Path
 import copy
 import yaml
@@ -28,7 +30,7 @@ class A2EAPI:
 
     def find_missing_files(self):
 
-        files = self.a2e.search(self.config['filter'])
+        files = self.a2e.search(self.config['filter'],)
 
         list_of_data = [item.name for item in Path(ROOT / "data").iterdir()]
 
